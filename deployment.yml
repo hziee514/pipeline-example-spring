@@ -29,8 +29,21 @@ spec:
     spec:
       imagePullSecrets:
         - name: pipeline-docker-registry
+      initContainers:
+        - image: registry.cn-hangzhou.aliyuncs.com/wrh/pipeline-example-spring:${CICD_EXECUTION_SEQUENCE}
+          name: jar
+          command: ["cp", "/app.jar", "/app"]
+          volumeMounts:
+            - mountPath: /app
+              name: app-vol
       containers:
-        - name: example-spring-server
-          image: registry.cn-hangzhou.aliyuncs.com/wrh/pipeline-example-spring:${CICD_EXECUTION_SEQUENCE}
+        - image: openjdk:8-alpine
+          name: example-spring-server
+          command: ["java", "-jar", "/app/app.jar"]
+            - mountPath: /app
           ports:
             - containerPort: 8080
+              name: app-vol
+      volumes:
+        - name: app-vol
+          emptyDir: {}
