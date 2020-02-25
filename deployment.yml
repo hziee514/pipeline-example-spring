@@ -30,7 +30,7 @@ spec:
       imagePullSecrets:
       - name: pipeline-docker-registry
       initContainers:
-      - image: registry.cn-hangzhou.aliyuncs.com/fullj/pipeline-example-spring:${CICD_EXECUTION_SEQUENCE}
+      - image: ${CICD_REGISTRY}/${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: jar
         command: ["cp", "/app.jar", "/app"]
         volumeMounts:
