@@ -4,20 +4,17 @@ stages:
     - runScriptConfig:
         image: maven:3-jdk-8
         shellScript: |-
-          touch /settings.xml
-          echo "<settings><mirrors><mirror><id>nexus-aliyun</id><url>https://maven.aliyun.com/nexus/content/groups/public/</url><mirrorOf>central</mirrorOf></mirror></mirrors></settings>" /settings.xml
-          mvn -s /settings.xml clean package
-# no effect
-#        volumeMounts:
-#          - mountPath: /opt/maven
-#            name: app-vol
-#      volumes:
-#        - name: app-vol
-#          configMap:
-#            name: maven-settings
-#            items:
-#              - key: settings.xml
-#                path: ./settings.xml
+          mvn -s /opt/maven/settings.xml clean package
+        volumeMounts:
+          - mountPath: /opt/maven
+            name: cfg-vol
+        volumes:
+          - name: cfg-vol
+            configMap:
+              name: maven-settings
+              items:
+                - key: settings.xml
+                  path: ./settings.xml
 - name: Publish
   steps:
     - publishImageConfig:
