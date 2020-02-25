@@ -4,7 +4,7 @@ stages:
     - runScriptConfig:
         image: maven:3-jdk-8
         shellScript: |-
-          mvn clean package
+          mvn --settings /etc/maven/settings.xml clean package
         volumeMounts:
           - mountPath: /etc/maven
             name: app-vol
