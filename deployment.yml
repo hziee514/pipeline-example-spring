@@ -1,10 +1,10 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: pipeline-example-spring-service
+  name: example-spring-service
 spec:
   selector:
-    app: example-spring-server
+    app: example-spring
   type: NodePort
   ports:
     - protocol: TCP
@@ -14,18 +14,18 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pipeline-example-spring-server
+  name: example-spring-server
   labels:
     app: example-spring-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: example-spring-server
+      app: example-spring
   template:
     metadata:
       labels:
-        app: example-spring-server
+        app: example-spring
     spec:
       imagePullSecrets:
         - name: pipeline-docker-registry
@@ -38,9 +38,10 @@ spec:
               name: app-vol
       containers:
         - image: openjdk:8-alpine
-          name: example-spring-server
+          name: example-spring
           command: ["java", "-jar", "/app/app.jar"]
             - mountPath: /app
+              name: app-vol
           ports:
             - containerPort: 8080
               name: app-vol
