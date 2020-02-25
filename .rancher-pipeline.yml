@@ -21,7 +21,7 @@ stages:
     - publishImageConfig:
         dockerfilePath: ./Dockerfile
         buildContext: .
-        tag: wrh/pipeline-example-spring:${CICD_EXECUTION_SEQUENCE}
+        tag: fullj/pipeline-example-spring:${CICD_EXECUTION_SEQUENCE}
         pushRemote: true
         registry: registry.cn-hangzhou.aliyuncs.com
       env:

@@ -8,7 +8,7 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      port: 8081
+      port: 18080
       targetPort: 8080
 ---
 apiVersion: apps/v1
@@ -30,21 +30,21 @@ spec:
       imagePullSecrets:
         - name: pipeline-docker-registry
       initContainers:
-        - image: registry.cn-hangzhou.aliyuncs.com/wrh/pipeline-example-spring:${CICD_EXECUTION_SEQUENCE}
-          name: jar
-          command: ["cp", "/app.jar", "/app"]
-          volumeMounts:
-            - mountPath: /app
-              name: app-vol
+      - image: registry.cn-hangzhou.aliyuncs.com/fullj/pipeline-example-spring:${CICD_EXECUTION_SEQUENCE}
+        name: jar
+        command: ["cp", "/app.jar", "/app"]
+        volumeMounts:
+          - mountPath: /app
+            name: app-vol
       containers:
-        - image: openjdk:8-alpine
-          name: example-spring
-          command: ["java", "-jar", "/app/app.jar"]
-            - mountPath: /app
-              name: app-vol
-          ports:
-            - containerPort: 8080
-              name: app-vol
+      - image: openjdk:8-alpine
+        name: example-spring
+        command: ["java", "-jar", "/app/app.jar"]
+          - mountPath: /app
+            name: app-vol
+        ports:
+          - containerPort: 8080
+            name: app-vol
       volumes:
-        - name: app-vol
-          emptyDir: {}
+      - name: app-vol
+        emptyDir: {}
