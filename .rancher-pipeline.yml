@@ -2,19 +2,20 @@ stages:
 - name: Build
   steps:
     - runScriptConfig:
-        image: maven:3-jdk-8
+        image: registry.cn-hangzhou.aliyuncs.com/fullj/aliyun-maven:3-jdk-8
         shellScript: |-
-          mvn -s /opt/maven/settings.xml clean package
-        volumeMounts:
-          - mountPath: /opt/maven
-            name: cfg-vol
-        volumes:
-          - name: cfg-vol
-            configMap:
-              name: maven-settings
-              items:
-                - key: settings.xml
-                  path: ./settings.xml
+          mvn --settings /settings.xml clean package
+# blow block has no effect
+#        volumeMounts:
+#          - mountPath: /opt/maven
+#            name: cfg-vol
+#        volumes:
+#          - name: cfg-vol
+#            configMap:
+#              name: maven-settings
+#              items:
+#                - key: settings.xml
+#                  path: ./settings.xml
 - name: Publish
   steps:
     - publishImageConfig:
