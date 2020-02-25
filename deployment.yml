@@ -16,7 +16,7 @@ kind: Deployment
 metadata:
   name: example-spring-server
   labels:
-    app: example-spring-server
+    app: example-spring
 spec:
   replicas: 1
   selector:
@@ -40,11 +40,11 @@ spec:
       - image: openjdk:8-alpine
         name: example-spring
         command: ["java", "-jar", "/app/app.jar"]
+        volumeMounts:
           - mountPath: /app
             name: app-vol
         ports:
           - containerPort: 8080
-            name: app-vol
       volumes:
       - name: app-vol
         emptyDir: {}
