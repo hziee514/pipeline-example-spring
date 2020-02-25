@@ -1,0 +1,31 @@
+stages:
+- name: Build
+  steps:
+    - runScriptConfig:
+        image: maven:3-jdk-8
+        shellScript: |-
+          mvn clean package
+        volumeMounts:
+          - mountPath: /etc/maven
+            name: app-vol
+      volumes:
+        - name: app-vol
+          configMap:
+            name: maven-settings
+            items:
+              - key: settings.xml
+                path: ./settings.xml
+- name: Publish
+  steps:
+    - publishImageConfig:
+        dockerfilePath: ./Dockerfile
+        buildContext: .
+        tag: wrh/pipeline-example-spring:${CICD_EXECUTION_SEQUENCE}
+        pushRemote: true
+        registry: registry.cn-hangzhou.aliyuncs.com
+      env:
+        PLUGIN_MIRROR: https://d6izfrb6.mirror.aliyuncs.com
+- name: Deploy
+  steps:
+    - applyYamlConfig:
+        path: ./deployment.yml
