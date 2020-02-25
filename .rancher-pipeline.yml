@@ -4,11 +4,9 @@ stages:
     - runScriptConfig:
         image: maven:3-jdk-8
         shellScript: |-
-          mkdir -p /opt/maven
-          touch /opt/maven/settings.xml
-          echo "<settings><mirrors><mirror><id>nexus-aliyun</id><url>https://maven.aliyun.com/nexus/content/groups/public/</url><mirrorOf>central</mirrorOf></mirror></mirrors></settings>" /opt/maven/settings.xml
-          cat /opt/maven/settings.xml
-          mvn --settings /opt/maven/settings.xml clean package
+          touch /settings.xml
+          echo "<settings><mirrors><mirror><id>nexus-aliyun</id><url>https://maven.aliyun.com/nexus/content/groups/public/</url><mirrorOf>central</mirrorOf></mirror></mirrors></settings>" /settings.xml
+          mvn -s /settings.xml clean package
 # no effect
 #        volumeMounts:
 #          - mountPath: /opt/maven
