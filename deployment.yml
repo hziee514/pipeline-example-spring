@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: example-spring-service
+  namespace: default
 spec:
   selector:
     app: example-spring
@@ -15,6 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: example-spring-deployment
+  namespace: default
   labels:
     app: example-spring
 spec:
