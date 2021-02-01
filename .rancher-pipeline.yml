@@ -8,8 +8,8 @@ stages:
           <settings>
             <mirrors>
               <mirror>
-                <mirrorOf>central</mirrorOf>
-                <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+                <mirrorOf>*</mirrorOf>
+                <url>https://maven.aliyun.com/repository/public</url>
               </mirror>
             </mirrors>
           </settings>
