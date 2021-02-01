@@ -5,15 +5,15 @@ stages:
         image: maven:3-jdk-8
         shellScript: |
           tee /settings.xml <<EOF
-<settings>
-  <mirrors>
-    <mirror>
-      <mirrorOf>central</mirrorOf>
-      <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
-    </mirror>
-  </mirrors>
-</settings>
-EOF
+          <settings>
+            <mirrors>
+              <mirror>
+                <mirrorOf>central</mirrorOf>
+                <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+              </mirror>
+            </mirrors>
+          </settings>
+          EOF
           mvn -s /settings.xml clean package
 - name: Publish
   steps:
