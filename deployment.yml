@@ -30,7 +30,8 @@ spec:
         app: example-spring
     spec:
       imagePullSecrets:
-      - name: pipeline-docker-registry
+#      - name: pipeline-docker-registry
+      - name: docker-registry
       initContainers:
       - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         name: jar
