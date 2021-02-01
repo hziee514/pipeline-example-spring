@@ -2,7 +2,7 @@ stages:
 - name: Build
   steps:
     - runScriptConfig:
-        image: registry.cn-hangzhou.aliyuncs.com/fullj/aliyun-maven:3-jdk-8
+        image: maven:3-jdk-8
         shellScript: |-
           echo "<settings><mirrors><mirror><mirrorOf>central</mirrorOf><url>https://maven.aliyun.com/repository/public</url></mirror></mirrors></settings>" >/settings.xml && mvn --settings /settings.xml clean package
 # blow block has no effect
