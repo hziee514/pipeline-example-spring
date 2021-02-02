@@ -33,7 +33,8 @@ spec:
 #      - name: pipeline-docker-registry
       - name: docker-registry
       initContainers:
-      - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+#      - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+      - image: ${CICD_IMAGE}:${CICD_GIT_BRANCH}
         name: jar
         command: ["cp", "/app.jar", "/app"]
         volumeMounts:
