@@ -72,7 +72,6 @@
                     <failBuildOnCVSS>8</failBuildOnCVSS>
                     <skipProvidedScope>true</skipProvidedScope>
                     <skipRuntimeScope>true</skipRuntimeScope>
-                    <autoUpdate>false</autoUpdate>
                 </configuration>
                 <executions>
                     <execution>
